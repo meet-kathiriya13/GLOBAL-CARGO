@@ -1,0 +1,12 @@
+{
+  "name": "global-cargo",
+  "version": "1.0.0",
+  "description": "Global Cargo Logistics Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.2"
+  }
+}
