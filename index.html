@@ -33,11 +33,15 @@
             padding: 0;
         }
 
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-sans);
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -158,13 +162,14 @@
         /* --- Hero / Video Section --- */
         #hero-container {
             position: relative;
-            height: 900vh; /* Scroll length */
+            height: 100vh;
             width: 100%;
             background: #000;
+            overflow: hidden;
         }
 
         .canvas-container {
-            position: sticky;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
@@ -205,7 +210,7 @@
 
         /* --- Typography & Text Positioning --- */
         .overlay-text {
-            position: fixed;
+            position: absolute;
             color: #fff;
             visibility: hidden;
             opacity: 0;
@@ -546,22 +551,166 @@
             color: #fff;
         }
 
-        @media (max-width: 900px) {
+        /* --- Responsive Design (Mobile Only Fixes) --- */
+        @media (max-width: 1200px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 60px;
             }
+        }
+
+        @media (max-width: 992px) {
             .operations-grid, .footer-grid {
                 grid-template-columns: 1fr;
+                gap: 60px;
             }
             .operations-content {
                 padding-right: 0;
             }
-            .t-1 { font-size: min(10vw, 64px); }
-            .t-2, .t-4, .t-5, .t-7 { font-size: min(8vw, 40px); }
-            .t-3, .t-6 { font-size: min(6vw, 24px); }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            header, section.content-section, footer { 
+                padding-left: 40px; 
+                padding-right: 40px; 
+            }
             .overlay-text { max-width: 85%; }
-            header, section.content-section, footer { padding-left: 30px; padding-right: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            header, section.content-section, footer { 
+                padding-left: 24px; 
+                padding-right: 24px; 
+            }
+            section.content-section {
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+            footer {
+                padding-top: 80px;
+            }
+            
+            header {
+                padding-top: 24px;
+                padding-bottom: 24px;
+                flex-direction: column;
+                gap: 20px;
+            }
+            .nav-links {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: clamp(32px, 8vw, 42px);
+                line-height: 1.2;
+            }
+            .section-subtitle {
+                margin-bottom: 40px;
+            }
+            
+            .operations-content h2 {
+                font-size: clamp(32px, 8vw, 42px);
+                line-height: 1.2;
+            }
+            
+            .operations-image {
+                height: 400px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Performance fixes for mobile */
+            .service-card {
+                padding: 40px 24px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+            .logo, .loader-logo, .footer-logo {
+                text-shadow: 0 0 10px rgba(245,158,11,0.1);
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+            .stat-number {
+                font-size: 48px;
+                text-shadow: 0 0 10px rgba(245,158,11,0.1);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            .footer-desc {
+                margin: 0 auto;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding-top: 30px;
+            }
+            .footer-bottom a {
+                margin: 0 15px;
+            }
+            
+            /* Typography fixes */
+            .t-1 { font-size: clamp(42px, 8vw, 72px); line-height: 1.2; }
+            .t-2, .t-4, .t-5, .t-7 { font-size: clamp(28px, 5vw, 48px); line-height: 1.2; }
+            .t-3, .t-6 { font-size: clamp(16px, 4vw, 24px); line-height: 1.2; }
+            
+            .overlay-text { 
+                max-width: 100%; 
+            }
+            /* Safe centering for GSAP */
+            .t-2, .t-3, .t-5, .t-6 {
+                text-align: center;
+                left: 0;
+                right: 0;
+                width: 100%;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            .btn-glass {
+                padding: 12px 24px;
+                font-size: 12px;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section.content-section {
+                padding-top: 48px;
+                padding-bottom: 48px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .nav-links {
+                gap: 15px;
+            }
+            .nav-links a {
+                font-size: 11px;
+            }
+            .operations-image {
+                height: 300px;
+            }
+            .btn-glass {
+                padding: 10px 20px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -738,7 +887,7 @@
         const lenis = new Lenis({
             duration: 1.2,
             smoothWheel: true,
-            smoothTouch: false,
+            smoothTouch: true,
             touchMultiplier: 2,
             lerp: 0.04
         });
@@ -839,31 +988,26 @@
 
         // --- 5. Hero Scroll Timeline (No Overlaps) ---
         function initScrollTimeline() {
-            // Map scroll to image sequence frame
-            gsap.to(imageSeq, {
-                frame: frameCount - 1,
-                snap: "frame",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#hero-container",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1.8
-                },
-                onUpdate: render
-            });
-
-            // Master Text Timeline (0 to 100 duration mapping to 0-100% of hero scroll)
+            // Master Timeline with GSAP Pinning
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#hero-container",
                     start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1.5
+                    end: "+=8000",
+                    scrub: 1.8,
+                    pin: true,
+                    anticipatePin: 1
                 }
             });
-            
-            tl.to({}, {duration: 100}); // Setup 100 unit timeline
+
+            // Map scroll to image sequence frame (duration 100 matches the text timeline)
+            tl.to(imageSeq, {
+                frame: frameCount - 1,
+                snap: "frame",
+                ease: "none",
+                duration: 100,
+                onUpdate: render
+            }, 0);
 
             // Helper for standard fade in/out
             function animateText(selector, start, end) {
